@@ -11,12 +11,12 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@master
-      
+
       - name: Install AWS CLI
         run: |
           sudo apt-get update
           sudo apt-get install -y awscli
-      
+
       - name: Create depedndencies folder
         run: |
           pip install -t dependencies -r requirements.txt
@@ -24,18 +24,17 @@ jobs:
       - name: Zip the dependencies folder as aws_lambda_artifacts.zip
         run: |
           (cd dependencies/; zip ../aws_lambda_artifacts.zip -r .)
-      
+
       - name: Update the zip file by adding app folder
         run: |
           (cd app/; zip ../aws_lambda_artifacts.zip -r .); ls
 
       - name: Verify AWS CLI
         run: |
-          aws --version
-          aws configure list
           echo ${{ secrets.AWS_ACCESS_KEY_ID }}
           echo ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           echo ${{ secrets.AWS_S3_BUCKET }}
+          aws --version
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
