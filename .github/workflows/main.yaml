@@ -15,9 +15,6 @@ jobs:
       - name: Update
         run: |
           sudo apt-get update
-
-      - name: Install AWS CLI
-        run: |
           sudo apt-get install -y awscli
 
       - name: Create depedndencies folder
@@ -32,10 +29,10 @@ jobs:
         run: |
           (cd app/; zip ../aws_lambda_artifacts.zip -r .)
           ls -l
+          aws --version
 
       - name: Verify AWS CLI
         run: |
-          aws --version
           aws configure list
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
