@@ -1,0 +1,6 @@
+import json
+
+
+PORT = 8001
+
+FILTER_API_PAGE_LIMIT = 1000
