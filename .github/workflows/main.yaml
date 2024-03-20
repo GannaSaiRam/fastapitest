@@ -29,6 +29,9 @@ jobs:
         run: |
           (cd app/; zip ../aws_lambda_artifacts.zip -r .)
           ls -l
+
+      - name: Version check
+        run: |
           aws --version
 
       - name: Verify AWS CLI
@@ -40,7 +43,7 @@ jobs:
 
       - name: Upload to S3
         run: |
-          aws s3 cp aws_lambda_artifacts.zip s3://${{ secrets.AWS_S3_BUCKET }} --debug
+          aws s3 cp aws_lambda_artifacts.zip s3://${{ secrets.AWS_S3_BUCKET }}
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
